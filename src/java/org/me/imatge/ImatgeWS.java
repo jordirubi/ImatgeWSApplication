@@ -60,7 +60,7 @@ public class ImatgeWS {
      * Web service operation
      */
     @WebMethod(operationName = "modifyImatge")
-    public int modifyImatge(@WebParam(name = "imatge") Imatge imatge) {
+    public int modifyImatge(@WebParam(name = "id_imatge") int id_imatge) {
         //TODO write your implementation code here:
         return 0;
     }
@@ -69,7 +69,7 @@ public class ImatgeWS {
      * Web service operation
      */
     @WebMethod(operationName = "listImatges")
-    public List listImatges() {
+    public List<Imatge> listImatges() {
         //TODO write your implementation code here:
         return null;
     }
@@ -78,7 +78,7 @@ public class ImatgeWS {
      * Web service operation
      */
     @WebMethod(operationName = "searchById")
-    public List searchById(@WebParam(name = "Id") int Id) {
+    public List<Imatge> searchById(@WebParam(name = "Id") int Id) {
         //TODO write your implementation code here:
         return null;
     }
@@ -87,7 +87,7 @@ public class ImatgeWS {
      * Web service operation
      */
     @WebMethod(operationName = "searchByTitle")
-    public List searchByTitle(@WebParam(name = "title") String title) {
+    public List<Imatge> searchByTitle(@WebParam(name = "title") String title) {
         //TODO write your implementation code here:
         return null;
     }
@@ -96,7 +96,7 @@ public class ImatgeWS {
      * Web service operation
      */
     @WebMethod(operationName = "searchByDate")
-    public List searchByDate(@WebParam(name = "date") String date) {
+    public List<Imatge> searchByDate(@WebParam(name = "date") String date) {
         //TODO write your implementation code here:
         return null;
     }
@@ -105,7 +105,7 @@ public class ImatgeWS {
      * Web service operation
      */
     @WebMethod(operationName = "searchByAutor")
-    public List searchByAutor(@WebParam(name = "autor") String autor) {
+    public List<Imatge> searchByAutor(@WebParam(name = "autor") String autor) {
         //TODO write your implementation code here:
         return null;
     }
@@ -114,7 +114,7 @@ public class ImatgeWS {
      * Web service operation
      */
     @WebMethod(operationName = "searchByKeywords")
-    public List searchByKeywords(@WebParam(name = "keywords") String keywords) {
+    public List<Imatge> searchByKeywords(@WebParam(name = "keywords") String keywords) {
         //TODO write your implementation code here:
         return null;
     }

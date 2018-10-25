@@ -8,6 +8,7 @@ package org.me.imatge;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.jws.WebService;
@@ -39,8 +40,8 @@ public class ImatgeWS {
         }
         try{
             //conn = DriverManager.getConnection("jdbc:sqlite:\\Users\\oriol\\OneDrive\\Escritorio\\loquesea.db");
-            conn = DriverManager.getConnection("jdbc:sqlite:/Usuaris/annagarcia-nieto/Escriptori/basedades.db");
-            PreparedStatement statement = conn.prepareStatement("insert into imagenes values (?, ?, ?, ?, ?, ? , ?)");
+           conn = DriverManager.getConnection("jdbc:sqlite:/Usuaris/annagarcia-nieto/Escriptori/basedades.db");
+           PreparedStatement statement = conn.prepareStatement("insert into imagenes values (?, ?, ?, ?, ?, ? , ?)");
            statement.setInt(1, imatge.getId());
            statement.setString(2, "Jordi");
            statement.setString(3, imatge.getTitol());
@@ -71,7 +72,36 @@ public class ImatgeWS {
     @WebMethod(operationName = "listImatges")
     public List<Imatge> listImatges() {
         //TODO write your implementation code here:
-        return null;
+        Connection conn = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error class.forname");
+        }
+        try{
+            //conn = DriverManager.getConnection("jdbc:sqlite:\\Users\\oriol\\OneDrive\\Escritorio\\loquesea.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:/Usuaris/annagarcia-nieto/Escriptori/basedades.db");
+            PreparedStatement statement =  conn.prepareStatement("select * from imagenes"); 
+
+            List<Imatge> list = null;
+            Imatge imatge = new Imatge();
+            
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                imatge.setTitol(rs.getString("titulo"));
+                imatge.setId(rs.getInt("id_imagen"));
+                imatge.setDescripcio(rs.getString("descripcion"));
+                imatge.setKeywords(rs.getString("palabras_clave"));
+                imatge.setDataCreacio(rs.getString("creacion"));
+                imatge.setAutor(rs.getString("autor"));
+                            
+                list.add(imatge);
+
+            }
+            return list;
+        } catch(SQLException e) {
+            return null;
+        }  
     }
 
     /**

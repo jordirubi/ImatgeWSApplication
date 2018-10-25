@@ -5,6 +5,10 @@
  */
 package org.me.imatge;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -23,7 +27,33 @@ public class ImatgeWS {
     @WebMethod(operationName = "registreImatge")
     public int registreImatge(@WebParam(name = "imatge") Imatge imatge) {
         //TODO write your implementation code here:
-        return 0;
+        String titol = imatge.getTitol();
+        String autor = imatge.getAutor();
+        String data = imatge.getDataCreacio();
+        String descripcio = imatge.getDescripcio();
+        Connection conn = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error class.forname");
+        }
+        try{
+            //conn = DriverManager.getConnection("jdbc:sqlite:\\Users\\oriol\\OneDrive\\Escritorio\\loquesea.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:/Usuaris/annagarcia-nieto/Escriptori/basedades.db");
+            PreparedStatement statement = conn.prepareStatement("insert into imagenes values (?, ?, ?, ?, ?, ? , ?)");
+           statement.setInt(1, imatge.getId());
+           statement.setString(2, "Jordi");
+           statement.setString(3, imatge.getTitol());
+           statement.setString(4, imatge.getDescripcio());
+           statement.setString(5, imatge.getKeywords());
+           statement.setString(6, imatge.getAutor());
+           statement.setString(7, imatge.getDataCreacio());
+           statement.executeUpdate();
+            return 1;
+        }
+        catch(SQLException ex){
+            return 0;
+        }
     }
 
     /**
